@@ -1,0 +1,474 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;800;900&family=Barlow:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .ef-root {
+    font-family: 'Barlow', sans-serif;
+    background: #050a14;
+    color: #e8edf5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  .ef-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(0,212,100,0.15);
+    background: rgba(5,10,20,0.95);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .ef-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: #00d464;
+  }
+  .ef-logo span { color: #e8edf5; }
+  .ef-nav-links { display: flex; gap: 2rem; list-style: none; }
+  .ef-nav-links a {
+    text-decoration: none;
+    color: rgba(232,237,245,0.6);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .ef-nav-links a:hover { color: #00d464; }
+  .ef-nav-btn {
+    background: #00d464;
+    color: #050a14;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .ef-nav-btn:hover { background: #00ff7a; transform: scale(1.03); }
+
+  .ef-hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 4rem 2rem;
+  }
+  .ef-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,212,100,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 80% at 20% 80%, rgba(0,120,255,0.06) 0%, transparent 60%),
+                #050a14;
+  }
+  .ef-field-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(90deg, #00d464 1px, transparent 1px),
+      linear-gradient(0deg, #00d464 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .ef-hero-content { position: relative; z-index: 2; max-width: 600px; }
+  .ef-hero-badge {
+    display: inline-block;
+    background: rgba(0,212,100,0.12);
+    border: 1px solid rgba(0,212,100,0.3);
+    color: #00d464;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .ef-hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .ef-hero-title .accent { color: #00d464; }
+  .ef-hero-sub {
+    color: rgba(232,237,245,0.55);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .ef-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .ef-btn-primary {
+    background: #00d464;
+    color: #050a14;
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .ef-btn-primary:hover { background: #00ff7a; transform: translateY(-2px); }
+  .ef-btn-outline {
+    background: transparent;
+    color: #e8edf5;
+    border: 1px solid rgba(232,237,245,0.25);
+    padding: 0.85rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .ef-btn-outline:hover { border-color: #00d464; color: #00d464; }
+
+  .ef-hero-stats {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 2;
+  }
+  .ef-stat { text-align: right; border-right: 2px solid #00d464; padding-right: 1rem; }
+  .ef-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    color: #00d464;
+    line-height: 1;
+  }
+  .ef-stat-label { font-size: 0.7rem; color: rgba(232,237,245,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+  .ef-section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .ef-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+  }
+  .ef-section-title .accent { color: #00d464; }
+  .ef-section-sub { color: rgba(232,237,245,0.4); font-size: 0.9rem; margin-bottom: 3rem; }
+
+  .ef-players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .ef-player-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .ef-player-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: #00d464;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .ef-player-card:hover { border-color: rgba(0,212,100,0.3); background: rgba(0,212,100,0.04); transform: translateY(-3px); }
+  .ef-player-card:hover::before { opacity: 1; }
+  .ef-player-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(0,212,100,0.1);
+    border: 2px solid rgba(0,212,100,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #00d464;
+    margin-bottom: 0.75rem;
+  }
+  .ef-player-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.5px; margin-bottom: 0.2rem; }
+  .ef-player-club { font-size: 0.75rem; color: rgba(232,237,245,0.4); margin-bottom: 0.75rem; }
+  .ef-player-rating { display: flex; align-items: center; gap: 0.5rem; }
+  .ef-rating-badge {
+    background: #00d464;
+    color: #050a14;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    line-height: 1;
+  }
+  .ef-player-pos { font-size: 0.72rem; color: rgba(232,237,245,0.35); letter-spacing: 1px; text-transform: uppercase; }
+
+  .ef-modes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .ef-mode-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .ef-mode-card.featured { border-color: rgba(0,212,100,0.25); background: rgba(0,212,100,0.04); grid-column: span 2; }
+  .ef-mode-card:hover { transform: translateY(-2px); border-color: rgba(0,212,100,0.4); }
+  .ef-mode-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .ef-mode-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.35rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+  .ef-mode-desc { font-size: 0.85rem; color: rgba(232,237,245,0.45); line-height: 1.6; }
+  .ef-mode-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    background: rgba(0,212,100,0.12);
+    border: 1px solid rgba(0,212,100,0.25);
+    color: #00d464;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .ef-matches-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ef-match-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .ef-match-row:hover { border-color: rgba(0,212,100,0.2); background: rgba(0,212,100,0.03); }
+  .ef-match-team { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.5px; min-width: 140px; }
+  .ef-match-team.right { text-align: right; }
+  .ef-match-score { display: flex; align-items: center; gap: 0.75rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.5rem; color: #00d464; }
+  .ef-match-div { color: rgba(232,237,245,0.2); font-weight: 300; font-size: 1.2rem; }
+  .ef-live-dot { display: inline-block; width: 7px; height: 7px; background: #ff3d3d; border-radius: 50%; margin-right: 5px; animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .ef-match-time { font-size: 0.75rem; color: rgba(232,237,245,0.35); letter-spacing: 1px; }
+
+  .ef-cta {
+    background: linear-gradient(135deg, rgba(0,212,100,0.08) 0%, rgba(0,120,255,0.04) 100%);
+    border-top: 1px solid rgba(0,212,100,0.12);
+    border-bottom: 1px solid rgba(0,212,100,0.12);
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+  .ef-cta-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -1px; margin-bottom: 1rem; }
+  .ef-cta-sub { color: rgba(232,237,245,0.45); font-size: 1rem; margin-bottom: 2.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+  .ef-footer {
+    background: rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .ef-footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: rgba(232,237,245,0.4); }
+  .ef-footer-links { display: flex; gap: 1.5rem; }
+  .ef-footer-links a { text-decoration: none; color: rgba(232,237,245,0.3); font-size: 0.8rem; letter-spacing: 0.5px; transition: color 0.2s; }
+  .ef-footer-links a:hover { color: #00d464; }
+  .ef-footer-copy { font-size: 0.75rem; color: rgba(232,237,245,0.2); }
+
+  @media (max-width: 600px) {
+    .ef-hero-stats { display: none; }
+    .ef-modes-grid { grid-template-columns: 1fr; }
+    .ef-mode-card.featured { grid-column: span 1; }
+    .ef-nav-links { display: none; }
+    .ef-match-team { min-width: 80px; font-size: 0.9rem; }
+  }
+</style>
+
+<div class="ef-root">
+
+  <nav class="ef-nav">
+    <div class="ef-logo">eF<span>ootball</span></div>
+    <ul class="ef-nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Players</a></li>
+      <li><a href="#">Modes</a></li>
+      <li><a href="#">Leagues</a></li>
+      <li><a href="#">News</a></li>
+    </ul>
+    <button class="ef-nav-btn" onclick="sendPrompt('How do I download eFootball?')">Play Now</button>
+  </nav>
+
+  <section class="ef-hero">
+    <div class="ef-hero-bg"></div>
+    <div class="ef-field-lines"></div>
+    <div class="ef-hero-content">
+      <div class="ef-hero-badge">⚽ Season 2025 · Live Now</div>
+      <h1 class="ef-hero-title">
+        THE WORLD'S<br>
+        <span class="accent">MOST REAL</span><br>
+        FOOTBALL
+      </h1>
+      <p class="ef-hero-sub">
+        Experience the thrill of world-class football in eFootball. Build your dream squad, compete against the best players on the planet.
+      </p>
+      <div class="ef-hero-btns">
+        <button class="ef-btn-primary" onclick="sendPrompt('How do I build a Dream Team in eFootball?')">Build Dream Team ↗</button>
+        <button class="ef-btn-outline" onclick="sendPrompt('Who are the best players in eFootball 2025?')">View Top Players</button>
+      </div>
+    </div>
+    <div class="ef-hero-stats">
+      <div class="ef-stat">
+        <div class="ef-stat-num">500M+</div>
+        <div class="ef-stat-label">Downloads</div>
+      </div>
+      <div class="ef-stat">
+        <div class="ef-stat-num">200+</div>
+        <div class="ef-stat-label">Countries</div>
+      </div>
+      <div class="ef-stat">
+        <div class="ef-stat-num">50K+</div>
+        <div class="ef-stat-label">Players</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ef-section">
+    <h2 class="ef-section-title">Top <span class="accent">Players</span></h2>
+    <p class="ef-section-sub">Best performers this season</p>
+    <div class="ef-players-grid">
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Mbappé eFootball stats')">
+        <div class="ef-player-avatar">MB</div>
+        <div class="ef-player-name">K. Mbappé</div>
+        <div class="ef-player-club">Real Madrid</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">97</span><span class="ef-player-pos">CF</span></div>
+      </div>
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Vinícius Jr eFootball stats')">
+        <div class="ef-player-avatar">VJ</div>
+        <div class="ef-player-name">Vinícius Jr.</div>
+        <div class="ef-player-club">Real Madrid</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">96</span><span class="ef-player-pos">LWF</span></div>
+      </div>
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Haaland eFootball stats')">
+        <div class="ef-player-avatar">EH</div>
+        <div class="ef-player-name">E. Haaland</div>
+        <div class="ef-player-club">Man City</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">96</span><span class="ef-player-pos">CF</span></div>
+      </div>
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Bellingham eFootball stats')">
+        <div class="ef-player-avatar">JB</div>
+        <div class="ef-player-name">J. Bellingham</div>
+        <div class="ef-player-club">Real Madrid</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">95</span><span class="ef-player-pos">AMF</span></div>
+      </div>
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Rodri eFootball stats')">
+        <div class="ef-player-avatar">RD</div>
+        <div class="ef-player-name">Rodri</div>
+        <div class="ef-player-club">Man City</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">95</span><span class="ef-player-pos">DMF</span></div>
+      </div>
+      <div class="ef-player-card" onclick="sendPrompt('Tell me Pedri eFootball stats')">
+        <div class="ef-player-avatar">PE</div>
+        <div class="ef-player-name">Pedri</div>
+        <div class="ef-player-club">Barcelona</div>
+        <div class="ef-player-rating"><span class="ef-rating-badge">94</span><span class="ef-player-pos">CMF</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ef-section" style="padding-top: 0;">
+    <h2 class="ef-section-title"><span class="ef-live-dot"></span>Live <span class="accent">Matches</span></h2>
+    <p class="ef-section-sub">Currently in progress</p>
+    <div class="ef-matches-list">
+      <div class="ef-match-row" onclick="sendPrompt('Show Man City vs Real Madrid match stats')">
+        <div class="ef-match-team">Man City</div>
+        <div class="ef-match-score"><span>2</span><span class="ef-match-div">–</span><span>1</span></div>
+        <div class="ef-match-team right">Real Madrid</div>
+        <div class="ef-match-time"><span class="ef-live-dot"></span>67'</div>
+      </div>
+      <div class="ef-match-row" onclick="sendPrompt('Show Barcelona vs PSG match stats')">
+        <div class="ef-match-team">Barcelona</div>
+        <div class="ef-match-score"><span>0</span><span class="ef-match-div">–</span><span>0</span></div>
+        <div class="ef-match-team right">PSG</div>
+        <div class="ef-match-time"><span class="ef-live-dot"></span>23'</div>
+      </div>
+      <div class="ef-match-row" onclick="sendPrompt('Show Bayern vs Juventus match stats')">
+        <div class="ef-match-team">Bayern Munich</div>
+        <div class="ef-match-score"><span>3</span><span class="ef-match-div">–</span><span>2</span></div>
+        <div class="ef-match-team right">Juventus</div>
+        <div class="ef-match-time" style="font-size:0.7rem;color:rgba(232,237,245,0.3)">FT</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ef-section" style="padding-top: 0;">
+    <h2 class="ef-section-title">Game <span class="accent">Modes</span></h2>
+    <p class="ef-section-sub">Play your way</p>
+    <div class="ef-modes-grid">
+      <div class="ef-mode-card featured" onclick="sendPrompt('Tell me about eFootball Dream Team mode in detail')">
+        <span class="ef-mode-icon">🏆</span>
+        <div class="ef-mode-title">Dream Team</div>
+        <div class="ef-mode-desc">Assemble your ultimate squad with the best players from any league in the world. Trade in the transfer market and build a team no one can beat.</div>
+        <span class="ef-mode-tag">Most Popular</span>
+      </div>
+      <div class="ef-mode-card" onclick="sendPrompt('How do I play League mode in eFootball?')">
+        <span class="ef-mode-icon">⚽</span>
+        <div class="ef-mode-title">League Mode</div>
+        <div class="ef-mode-desc">Take your favourite club through the full league season and fight for the championship title.</div>
+        <span class="ef-mode-tag">Single Player</span>
+      </div>
+      <div class="ef-mode-card" onclick="sendPrompt('How do I play eFootball online?')">
+        <span class="ef-mode-icon">🌐</span>
+        <div class="ef-mode-title">Online Mode</div>
+        <div class="ef-mode-desc">Challenge players from around the world in real-time competitive matches.</div>
+        <span class="ef-mode-tag">Multiplayer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ef-cta">
+    <h2 class="ef-cta-title">Step onto the pitch <span style="color:#00d464">today</span></h2>
+    <p class="ef-cta-sub">Download for free and compete against the world's best footballers.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button class="ef-btn-primary" onclick="sendPrompt('Where can I download eFootball on Android?')">📱 Download on Android ↗</button>
+      <button class="ef-btn-outline" onclick="sendPrompt('Where can I download eFootball on iOS?')">🍎 Download on iOS</button>
+    </div>
+  </div>
+
+  <footer class="ef-footer">
+    <div class="ef-footer-logo">eF<span style="color:rgba(232,237,245,0.2)">ootball</span></div>
+    <div class="ef-footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="ef-footer-copy">© 2025 eFootball Fan Site</div>
+  </footer>
+
+</div>
